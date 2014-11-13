@@ -212,3 +212,15 @@ class Sarsa_Factory(object):
         valuefn = params.get('valuefn')
         policy = params.get('policy')
         return Sarsa(**params)
+
+class TabularActionSarsa_Factory(object):
+    def __init__(self, **argk):
+        self.params = argk
+
+    def __call__(self, **argk):
+        params = dict(self.params)
+        params.update([x for x in argk.items()])
+        valuefn = params.get('valuefn')
+        policy = params.get('policy')
+        params['actions'] = params['domain'].discrete_actions
+        return TabularActionSarsa(**params)

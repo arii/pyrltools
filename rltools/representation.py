@@ -63,6 +63,16 @@ class TabularState(Projector):
     def size(self):
         return self.__size
 
+class TileCoding_Factory(object):
+    def __init__(self, **argk):
+        self.param =argk
+
+    def __call__(self, **argk):
+        params = dict(self.param)
+        params.update([ x for x in argk.items()])
+        params['state_range'] = params['domain'].state_range
+        return TileCoding(**params)
+
 class Tiling(object):
     def __init__(self,
                  input_index,
@@ -111,7 +121,8 @@ class TileCoding(Projector):
                  ntilings,
                  hashing,
                  state_range,
-                 bias_term = True):
+                 bias_term = True,
+                 **argk):
         super(TileCoding, self).__init__()
         if hashing == None:
             hashing = [None]*len(ntilings)

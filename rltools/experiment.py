@@ -200,7 +200,7 @@ def train_agent(**args):
     param['layers'] = [projector.size] + args.get('internal_layers', [40]) + [1]
     valuefn = value_fn_factory(projector = projector, domain=domain, **param)
     policy = policy_factory(domain = domain, valuefn = valuefn, **args)
-    agent = agent_factory(policy = policy, valuefn = valuefn, **args)
+    agent = agent_factory(domain=domain, policy = policy, valuefn = valuefn, **args)
 
     arguments = dict(args)
     arguments['domain'] = domain

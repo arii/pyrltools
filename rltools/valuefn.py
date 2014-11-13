@@ -584,3 +584,14 @@ class NeuroSFTD_Factory(object):
         params = dict(self.params)
         params.update([x for x in argk.items()])
         return NeuroSFTD( **params)
+
+
+class LinearTD_Factory(object):
+    def __init__(self, **argk):
+        self.params = argk
+
+    def __call__(self, **argk):
+        params = dict(self.params)
+        params.update([x for x in argk.items()])
+        params['num_actions'] = len(params['domain'].discrete_actions)
+        return LinearTD( **params)
